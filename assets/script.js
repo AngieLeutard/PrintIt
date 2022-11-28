@@ -18,9 +18,25 @@ const slides = [
 ]
 
 
+// Dots
+
+let dots = [];
+let dotContainer = document.querySelector(".dots");
+
+for (let i = 0; i < slides.length; i++) {
+	let dot = document.createElement("div");
+	dot.classList.add("dot");
+	if (i == 0) {
+		dot.classList.add("dot_selected");
+	}
+	dots[i] = dot;
+	dotContainer.appendChild(dot);
+}
+
 // Images 
 
-let image = document.querySelector("#banner .slide")
+let image = document.querySelector("#banner .slide");
+
 
 // Slider Text
 
@@ -31,42 +47,36 @@ let text = document.querySelector("#banner p");
 let arrowLeft = document.querySelector(".arrow_left");
 let arrowRight = document.querySelector(".arrow_right");
 
+i = 0;
 
-arrowLeft.addEventListener('click', function() {  
-	image.setAttribute("src", "./assets/images/slideshow/slide4.png");
-	text.innerHTML = slides[3].tagLine; 
-	dot1.classList.remove("dot_selected");
-	dot4.classList.add("dot_selected");
+let totalSlides = slides.length;
 
+arrowLeft.addEventListener('click', function() { 
+	i--;
+	if (i<0) {
+		i = slides.length - 1;
+		dots[0].classList.remove('dot_selected');
+	} else {
+		dots[i + 1].classList.remove('dot_selected');
+	}
+	image.setAttribute("src", "./assets/images/slideshow/" + slides[i].image);
+	text.innerHTML = slides[i].tagLine; 
+	dots[i].classList.add('dot_selected');
 });
 
-arrowRight.addEventListener('click', function() {    
-	image.setAttribute("src", "./assets/images/slideshow/slide2.jpg");
-	text.innerHTML = slides[1].tagLine; 
-	dot1.classList.remove("dot_selected");
-	dot2.classList.add("dot_selected");
+arrowRight.addEventListener('click', function() {
+	i++;
+	if (i==slides.length) {
+		i = 0
+		dots[slides.length - 1].classList.remove('dot_selected');
+	} else {
+		dots[i - 1].classList.remove('dot_selected');
+	}
+	image.setAttribute("src", "./assets/images/slideshow/" + slides[i].image);
+	text.innerHTML = slides[i].tagLine;
+	dots[i].classList.add('dot_selected');
 });
 
-// Dots
-
-let dotContainer = document.querySelector(".dots");
-
-let dot1 = document.createElement("div");
-dot1.classList.add("dot", "dot_selected");
-
-let dot2 = document.createElement("div");
-dot2.classList.add("dot");
-
-let dot3 = document.createElement("div");
-dot3.classList.add("dot");
-
-let dot4 = document.createElement("div");
-dot4.classList.add("dot");
-
-dotContainer.appendChild(dot1);
-dotContainer.appendChild(dot2);
-dotContainer.appendChild(dot3);
-dotContainer.appendChild(dot4);
 
 
 
