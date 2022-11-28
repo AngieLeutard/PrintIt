@@ -18,12 +18,14 @@ const slides = [
 ]
 
 
+let totalSlides = slides.length;
+
 // Dots
 
 let dots = [];
 let dotContainer = document.querySelector(".dots");
 
-for (let i = 0; i < slides.length; i++) {
+for (let i = 0; i < totalSlides; i++) {
 	let dot = document.createElement("div");
 	dot.classList.add("dot");
 	if (i == 0) {
@@ -49,12 +51,10 @@ let arrowRight = document.querySelector(".arrow_right");
 
 i = 0;
 
-let totalSlides = slides.length;
-
 arrowLeft.addEventListener('click', function() { 
 	i--;
 	if (i<0) {
-		i = slides.length - 1;
+		i = totalSlides - 1;
 		dots[0].classList.remove('dot_selected');
 	} else {
 		dots[i + 1].classList.remove('dot_selected');
@@ -66,9 +66,9 @@ arrowLeft.addEventListener('click', function() {
 
 arrowRight.addEventListener('click', function() {
 	i++;
-	if (i==slides.length) {
+	if (i==totalSlides) {
 		i = 0
-		dots[slides.length - 1].classList.remove('dot_selected');
+		dots[totalSlides - 1].classList.remove('dot_selected');
 	} else {
 		dots[i - 1].classList.remove('dot_selected');
 	}
